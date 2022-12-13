@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "gpt3-wordpress-cli"
+version = "0.1.0"
+description = ""
+authors = ["Nicola Ballotta <432172+nicolaballotta@users.noreply.github.com>"]
+readme = "README.md"
+packages = [{include = "gpt3_wordpress_cli"}]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+click = "^8.1.3"
+openai = "^0.25.0"
+python-wordpress-xmlrpc = "^2.3"
+typer = "^0.7.0"
+rich = "^12.6.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
