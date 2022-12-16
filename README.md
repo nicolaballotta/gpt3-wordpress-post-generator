@@ -3,6 +3,8 @@ This is a simple script I use to create posts for [NoHumansWrite](https://nohuma
 the OpenAI GPT-3 API to generate a WordPress post starting from the topic and tone 
 of what you want to write.
 
+![GPT3 WordPress Post Generator](screenshot.png)
+
 It uses the [OpenAI Python library](https://github.com/openai/openai-python) to make the OpenAI api calls and the 
 [WordPress XML-RPC library](https://github.com/maxcutler/python-wordpress-xmlrpc) to create WordPress posts.
 
