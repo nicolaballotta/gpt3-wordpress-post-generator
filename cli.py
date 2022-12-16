@@ -60,7 +60,7 @@ def cli(
     ) as progress:
         progress.add_task(description="Creating WordPress post...", total=None)
         post = generator.create_wordpress_post(title, content)
-    rich.print(f"Created post with title: {title}")
+    rich.print(f"Created post with title: {title}\n")
 
 
 if __name__ == '__main__':
