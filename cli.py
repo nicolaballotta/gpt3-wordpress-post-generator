@@ -6,45 +6,53 @@ from gpt3_wordpress import Gpt3Wordpress
 
 gpt3wordpress_cli = typer.Typer()
 
-generator = Gpt3Wordpress(
-    os.getenv("OPENAI_API_KEY"),
-    os.getenv("WORDPRESS_BLOG_URL"),
-    os.getenv("WORDPRESS_USERNAME"),
-    os.getenv("WORDPRESS_PASSWORD"),
-)
-
 
 @gpt3wordpress_cli.command()
 def cli(
-        topic: str = typer.Option(..., prompt="\nWhat is the topic of the post?", help="The topic of the post."),
-        tone: str = typer.Option(..., prompt="What is the tone of the post?", help="The tone of the post. (e.g. funny, "
-                                                                                   "serious, etc.)"),
+        open_api_key: str = typer.Option(
+            help="Your OpenAI API key.",
+            envvar="OPENAI_API_KEY",
+            default=os.getenv("OPENAI_API_KEY")
+        ),
+        wordpress_blog_url: str = typer.Option(
+            help="Your WordPress blog URL. (e.g. https://example.com)",
+            envvar="WORDPRESS_BLOG_URL",
+            default=os.getenv("WORDPRESS_BLOG_URL")
+        ),
+        wordpress_username: str = typer.Option(
+            help="Your WordPress username.",
+            envvar="WORDPRESS_USERNAME",
+            default=os.getenv("WORDPRESS_USERNAME")
+        ),
+        wordpress_password: str = typer.Option(
+            help="Your WordPress password.",
+            envvar="WORDPRESS_PASSWORD",
+            default=os.getenv("WORDPRESS_PASSWORD")
+        ),
+        topic: str = typer.Option(
+            ...,
+            prompt="\nWhat is the topic of the post?",
+            help="The topic of the post. (e.g. technology, crypto, ai, etc.)"
+        ),
+        tone: str = typer.Option(
+            prompt="What is the tone of the post?",
+            help="The tone of the post. (e.g. funny, serious, etc.)",
+            default="neutral"
+        ),
+        max_words: int = typer.Option(
+            prompt="Maximum words for the post?",
+            help="Maximum words for the post. (e.g. 2500)",
+            default=2500
+        )
 ):
-    while True:
-        with Progress(
-                SpinnerColumn(),
-                TextColumn("[progress.description]{task.description}"),
-        ) as progress:
-            progress.add_task(description="Generating title...", total=None)
-            title = generator.generate_post_title(topic).strip('\n')
-        rich.print(f"\nGenerated title: {title}")
-        confirm = typer.confirm("Do you like the title?")
-        if confirm:
-            rich.print(f"Using this title: {title}")
-            break
-
-    while True:
-        with Progress(
-                SpinnerColumn(),
-                TextColumn("[progress.description]{task.description}"),
-        ) as progress:
-            progress.add_task(description="Generating post...", total=None)
-            content = generator.generate_post(title, tone)
-        rich.print(f"Generated content: {content}")
-        confirm = typer.confirm("Do you like the post content?")
-        if confirm:
-            rich.print(f"Using this content: {content}")
-            break
+    generator = Gpt3Wordpress(
+        open_api_key,
+        wordpress_blog_url,
+        wordpress_username,
+        wordpress_password,
+    )
+    title = generator.generate_post_title(topic)
+    content = generator.generate_post(title, tone, max_words)
 
     with Progress(
             SpinnerColumn(),
@@ -56,4 +64,8 @@ def cli(
 
 
 if __name__ == '__main__':
+    rich.print("\n")
+    rich.print("█▀▀ █▀█ ▀█▀ ▄▄ ▀▀█   █░█░█ █▀█ █▀█ █▀▄ █▀█ █▀█ █▀▀ █▀ █▀   █▀█ █▀█ █▀ ▀█▀  █▀▀ █▀▀ █▄░█ █▀▀ █▀█ ▄▀█ ▀█▀ █▀█ █▀█")
+    rich.print("█▄█ █▀▀ ░█░ ░░ ▄██   ▀▄▀▄▀ █▄█ █▀▄ █▄▀ █▀▀ █▀▄ ██▄ ▄█ ▄█   █▀▀ █▄█ ▄█ ░█░  █▄█ ██▄ █░▀█ ██▄ █▀▄ █▀█ ░█░ █▄█ █▀▄")
+
     typer.run(cli)
