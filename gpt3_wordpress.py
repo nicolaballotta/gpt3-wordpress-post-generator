@@ -67,8 +67,7 @@ class Gpt3Wordpress:
         post.content = content
         post.post_status = 'draft'
         try:
-            created_post = client.call(NewPost(post))
-            return created_post.link
+            client.call(NewPost(post))
         except Exception() as e:
             rich.print(f"Error: {e}")
             exit(1)

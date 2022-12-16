@@ -59,7 +59,7 @@ def cli(
             TextColumn("[progress.description]{task.description}"),
     ) as progress:
         progress.add_task(description="Creating WordPress post...", total=None)
-        generator.create_wordpress_post(title, content)
+        post = generator.create_wordpress_post(title, content)
     rich.print(f"Created post with title: {title}")
 
 
