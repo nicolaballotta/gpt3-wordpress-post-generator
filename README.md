@@ -20,8 +20,7 @@ the script. Feel free to contribute if you find it useful.
     export WORDPRESS_USERNAME="Your WordPress username"
     export WORDPRESS_PASSWORD="Your WordPress password"
     ```
-4. Run the script: `poetry run python cli.py`
-5. If everything works, you will find the generated post draft in your WordPress dashboard
+4. Run the script: `poetry run python cli.py --help`
 5. Enjoy!
 
 ## Known Limitations
