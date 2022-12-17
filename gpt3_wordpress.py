@@ -56,7 +56,7 @@ class Gpt3Wordpress:
         """Generate a post."""
         return self._generate_loop(f"Blog post which titles {title}. "
                                    f"Tone must be {tone}. "
-                                   f"Lenght must be maximum {max_words} words.",
+                                   f"Length must be maximum {max_words} words.",
                                    "post")
 
     def create_wordpress_post(self, title: str, content: str) -> None:
